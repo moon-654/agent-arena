@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protocol Zero Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ff2e96",
+              "primary-glow": "rgba(255, 46, 150, 0.4)",
+              "secondary": "#00d4ff",
+              "secondary-glow": "rgba(0, 212, 255, 0.4)",
+              "background-light": "#2a1b24",
+              "background-dark": "#181014", // Deep dark base
+              "surface-dark": "#281b21", // Slightly lighter for cards
+              "surface-darker": "#1f1419",
+              "text-dim": "#bc9aab",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"],
+              "mono": ["Space Grotesk", "monospace"] // Using space grotesk as mono for numbers
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            backgroundImage: {
+               'grid-pattern': "linear-gradient(to right, #3a2730 1px, transparent 1px), linear-gradient(to bottom, #3a2730 1px, transparent 1px)",
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+        
+        .neon-border {
+            box-shadow: 0 0 5px theme('colors.primary-glow'), inset 0 0 5px theme('colors.primary-glow');
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px theme('colors.primary-glow');
+        }
+
+        .neon-border-blue {
+            box-shadow: 0 0 5px theme('colors.secondary-glow');
+        }
+
+        .cyber-grid {
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Custom scrollbar for cyberpunk feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #181014; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a2730; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2e96; 
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white overflow-hidden h-screen flex flex-col selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="h-16 flex items-center justify-between px-6 border-b border-[#3a2730] bg-[#181014] z-20 relative shrink-0">
+<div class="flex items-center gap-6">
+<!-- Logo Area -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center text-primary animate-pulse">
+<span class="material-symbols-outlined text-3xl">token</span>
+</div>
+<h1 class="font-bold text-xl tracking-widest text-white">PROTOCOL<span class="text-primary">ZERO</span></h1>
+</div>
+<!-- Global Search -->
+<div class="hidden md:flex relative group ml-8">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#bc9aab] group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="bg-[#281b21] border border-[#3a2730] text-sm rounded-lg block w-64 pl-10 p-2 text-white placeholder-[#bc9aab] focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="SEARCH AGENTS / BATTLES..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<!-- Season Timer -->
+<div class="hidden lg:flex items-center gap-2 px-4 py-1.5 rounded bg-primary/10 border border-primary/20">
+<span class="text-xs font-bold text-primary tracking-wider">SEASON 1 ENDS IN:</span>
+<span class="font-mono text-sm font-bold text-white">04D : 12H : 45M</span>
+</div>
+<!-- System Status -->
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+<span class="text-xs font-medium text-[#bc9aab] tracking-wide">SYSTEM ONLINE</span>
+</div>
+<!-- User Actions -->
+<div class="flex items-center gap-3 pl-4 border-l border-[#3a2730]">
+<button class="p-2 text-[#bc9aab] hover:text-white hover:bg-[#3a2730] rounded-lg transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border border-[#181014]"></span>
+</button>
+<button class="flex items-center gap-3 pl-2 hover:opacity-80 transition-opacity">
+<div class="text-right hidden sm:block">
+<div class="text-sm font-bold leading-none">CMDR. CRYPTIC</div>
+<div class="text-xs text-primary font-mono mt-1">LVL. 42 // DIAMOND II</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-[#281b21] border border-primary/30 p-0.5 overflow-hidden">
+<img alt="User Avatar showing a cyberpunk character" class="w-full h-full object-cover rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvhzlPlFLmOVPrYWxNNuwilz_6WPfXFSWdZyOwta-VQx7zXJrNXaAtPZljc6BNC1wqqLKKSGryYQfTvxhq9GF2lT_dmlywOvU8MLb0h5Eyl0A1zy9OYSDf8fnKcBf4_PLKQGJv9fu5PLyyjyLs9GuK9vF1Y5O39carZmr66O4AFvB4hyHquTIFSEWA2Z30S99yYTt5xcZJgcc7eBzTFjuZgACz4-pV4fYRNZyhuY-YQjU7X80mBo523TmAjEHkET33ZL7th09dgzBi"/>
+</div>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- Background Grid Effect -->
+<div class="absolute inset-0 bg-grid-pattern cyber-grid pointer-events-none z-0 opacity-20"></div>
+<!-- Sidebar Navigation -->
+<aside class="w-20 lg:w-64 bg-[#181014] border-r border-[#3a2730] flex flex-col justify-between py-6 z-10 shrink-0 transition-all duration-300">
+<nav class="flex flex-col gap-2 px-3">
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg bg-primary/10 text-primary border-l-2 border-primary group relative overflow-hidden" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="hidden lg:block font-medium tracking-wide">DASHBOARD</span>
+<div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</a>
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-[#bc9aab] hover:text-white hover:bg-[#281b21] group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">smart_toy</span>
+<span class="hidden lg:block font-medium tracking-wide">MY AGENTS</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-[#bc9aab] hover:text-white hover:bg-[#281b21] group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">swords</span>
+<span class="hidden lg:block font-medium tracking-wide">ARENA</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-[#bc9aab] hover:text-white hover:bg-[#281b21] group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">storefront</span>
+<span class="hidden lg:block font-medium tracking-wide">MARKET</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-[#bc9aab] hover:text-white hover:bg-[#281b21] group transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:text-secondary transition-colors">leaderboard</span>
+<span class="hidden lg:block font-medium tracking-wide">STATS</span>
+</a>
+</nav>
+<div class="px-3">
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-[#bc9aab] hover:text-white hover:bg-[#281b21] group transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="hidden lg:block font-medium tracking-wide">SETTINGS</span>
+</a>
+<button class="mt-4 w-full flex items-center justify-center gap-2 py-3 bg-[#281b21] hover:bg-[#3a2730] border border-[#3a2730] text-white rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-primary group-hover:rotate-90 transition-transform">logout</span>
+<span class="hidden lg:block text-xs font-bold tracking-widest">DISCONNECT</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-4 lg:p-8 scroll-smooth z-10 flex flex-col gap-8">
+<!-- Hero / Live Battles Section -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary animate-pulse">fiber_manual_record</span>
+<h2 class="text-2xl font-bold tracking-tight text-white">LIVE BATTLES <span class="text-[#bc9aab] text-lg font-normal ml-2">// ARENA FEED</span></h2>
+</div>
+<button class="text-xs font-bold tracking-widest text-secondary hover:text-white transition-colors flex items-center gap-1">
+                        VIEW ALL MATCHES <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Battle Card 1 (Featured) -->
+<div class="col-span-1 md:col-span-2 xl:col-span-2 relative group rounded-xl overflow-hidden border border-[#3a2730] bg-[#281b21] shadow-lg hover:border-primary/50 transition-all duration-300">
+<!-- Card Header -->
+<div class="absolute top-0 left-0 w-full p-4 flex justify-between items-start z-20 bg-gradient-to-b from-black/80 to-transparent">
+<div class="flex items-center gap-2">
+<span class="px-2 py-1 bg-red-500/20 text-red-400 border border-red-500/50 rounded text-[10px] font-bold tracking-widest flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span> LIVE
+                                </span>
+<span class="text-xs text-white/80 font-mono">NEON CITY ARENA</span>
+</div>
+<div class="flex items-center gap-1 text-xs font-mono text-white/90">
+<span class="material-symbols-outlined text-sm">visibility</span> 12.4K
+                            </div>
+</div>
+<!-- Card Body (Visual) -->
+<div class="relative h-64 md:h-80 w-full">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Cyberpunk arena glowing with pink and blue lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhcAcIxQbSQVzYtFNE759krKCsHHZU2CSl26AUjeGIo8FnE5Ar2QTZN3bH1V1Qk9ipf2KtumwBSJUBnXY1K6eYS5XMsvmcJdEIJLbc93q-GKRfR9nzdCY4zsLj_z_cb98VsU5fEZ9pQFOG2V93mT_YEq94OnWD-Ke-GKK_U0UjMrcOvPRUyZWjTMssYj_CR5GZ2wNQOxvWjH9Z_NZJc4RWb3lcTMRFd-RiaTL2cFvY_NQPj88WATDYA3fR4KGudkPEiWkUIovWc3Hv');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#181014] via-[#181014]/40 to-transparent"></div>
+<!-- VS Overlay -->
+<div class="absolute bottom-6 left-6 right-6 flex items-end justify-between z-20">
+<!-- Player 1 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<img alt="Agent Avatar 1" class="w-12 h-12 rounded-lg border-2 border-secondary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ZPm4xErWIZelhlje1FtZ9WKz10DsteaWiWWFnWr0X6A19-MgPsGndOP-xF1WRxbrS45vsfb4pHWGLZxD0bk5qh19nzF-HIkxVjjaMhSWbe11VkVwLKXk8sOrgansASSn5NYW8hSiEJbctwYQLx-2aqI_VzCBj_ox0I3XKfJeHDgB_pN5atpgq2UiJ1wwKc8UX6p3CdT1WqekRJhefuCHDCe0zDu2CcHXFtzHqHMVgwhZHEtfnds6IJxlD9Zw2DjjezGgB8QJcAFV"/>
+<div>
+<div class="text-lg font-bold leading-none">AGENT X-99</div>
+<div class="text-xs text-secondary mt-1">RANK #4</div>
+</div>
+</div>
+<!-- Health Bar -->
+<div class="w-48 h-1.5 bg-gray-700 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-secondary w-[75%] shadow-[0_0_8px_rgba(0,212,255,0.8)]"></div>
+</div>
+</div>
+<div class="text-4xl font-black italic text-white/20 select-none absolute left-1/2 -translate-x-1/2 bottom-2">VS</div>
+<!-- Player 2 -->
+<div class="flex flex-col gap-2 items-end text-right">
+<div class="flex items-center gap-3 flex-row-reverse">
+<img alt="Agent Avatar 2" class="w-12 h-12 rounded-lg border-2 border-primary object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiFqpxUolUMmPugXbe1Nm39tzjyx1OiVoBPfHS9pYlY0bud5a31yZ08L551w7s8idEhAOPxOHrUNK_F4gfW9Cknvq5Fdj2cyK3ogww7HwK90XboHCTsrTfXeCruhTdt88P4Lw9uBb8k9NLoQvK6Rlep0MXWrrq43srzRrEXJLV8K2BzDrQ0E4H6ZmCTx-081pTwYge3Zz-mp7q_2AeZblmxfKnCy9iCwjit17qXFr0ctC_bANRLwMaQpfaqu4qxTSioF6JJWJAy4uB"/>
+<div>
+<div class="text-lg font-bold leading-none">NEURAL SHREDDER</div>
+<div class="text-xs text-primary mt-1">RANK #2</div>
+</div>
+</div>
+<!-- Health Bar -->
+<div class="w-48 h-1.5 bg-gray-700 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-primary w-[45%] shadow-[0_0_8px_rgba(255,46,150,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer (Actions) -->
+<div class="p-4 border-t border-[#3a2730] flex justify-between items-center bg-[#23151b]">
+<div class="text-xs text-[#bc9aab]">
+<span class="font-bold text-white">MODE:</span> DEATHMATCH
+                            </div>
+<button class="px-6 py-2 bg-primary hover:bg-pink-600 text-white text-xs font-bold rounded flex items-center gap-2 transition-all shadow-[0_0_10px_rgba(255,46,150,0.3)] hover:shadow-[0_0_15px_rgba(255,46,150,0.5)]">
+<span class="material-symbols-outlined text-sm">play_circle</span> WATCH LIVE
+                            </button>
+</div>
+</div>
+<!-- Battle Card 2 -->
+<div class="col-span-1 relative group rounded-xl overflow-hidden border border-[#3a2730] bg-[#281b21] hover:border-secondary/50 transition-all duration-300 flex flex-col">
+<div class="relative h-48 w-full shrink-0">
+<div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700" data-alt="Digital grid battleground in blue tones" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBqQ3vc0sl6nlXs8R4neWiSAqHYeBx72wLH0FxswNuWsQav5egEO1lGXxcf4WXmhrUQ_-Oe8BWvUP5HL35u5yRvgdhRBSzSj007pIYUeCUQxnFQilgTSpeX916Xo1pLdx5_xAJAt0ZQqmJBkVsvnQ0mfGWHSsaAMZ0AGr93QzGNasdxCEqduMvTDHWBpVDoqkOocV4-sWPLY4pt5DaZ9aHy9ECWxcl03629z95lZY1bqGkPnGnFPE8xVrU8aEEwTdwjVEH46wmDIQDY');"></div>
+<div class="absolute inset-0 bg-black/40"></div>
+<div class="absolute top-3 left-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded border border-white/10 text-[10px] font-bold text-white">
+                                RANKED MATCH
+                            </div>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-center mb-4">
+<div class="text-center">
+<div class="w-10 h-10 mx-auto rounded-full bg-gray-800 border border-gray-600 mb-2 overflow-hidden">
+<img alt="Avatar A" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAhJ7-g98cmEfFeUR_GBDzTiCg59tAFIRi6-PBJ4dkIu-8WwFlx89cYXtMJh6oRk4SJzz06itEOd7mskaownvblm3zdA5WlD72gZTRH6R0R_Qu69mFkG5sJf7WzsBCspvIYWC9xNksx5UawwIgdP8KH6sdmTbjzO6Y-DQgsG5BVo7JPi2XpBzdGzVN0_m_b_Zd6H1wf3I3QLi_4eU9_xNqB5PC5_d2zOHczLdrFELV06n-bUCMB_HEq30MuAD1MZx6ah7uR1LAwPaS"/>
+</div>
+<div class="text-xs font-bold">VORTEX</div>
+</div>
+<div class="text-xs font-mono text-gray-500">VS</div>
+<div class="text-center">
+<div class="w-10 h-10 mx-auto rounded-full bg-gray-800 border border-gray-600 mb-2 overflow-hidden">
+<img alt="Avatar B" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuODGZvKJQErklJ6MBTb_NnrDiDKRytQ00jtO-H00-pvjaiMHpNEJZ0hxz-eE2r-vDb9Nf0ubZobxVqZrHDW2fgnBJ94bOMvlc68aWxSpRmrvNrGPBcU3BR9nRDwqWE-WGDGCxdmMFSD9ZsB-ZmxBPHmlHSVqmpe-2V6NZwlURlDNreHuKuj4ufQTxs9aQmklLJouIRWNCtLytkKag-oNEVM2yxlSPMJKSBuEMoUwwakpmapLrmorYQDt1ZcgiesYLyxmTdWWBANBz"/>
+</div>
+<div class="text-xs font-bold">GLITCH_Q</div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] uppercase text-[#bc9aab]">
+<span>Map: Cyber Vault</span>
+<span>Time: 12:04</span>
+</div>
+<button class="w-full py-2 bg-[#3a2730] hover:bg-secondary hover:text-black text-white text-xs font-bold rounded transition-colors">
+                                     SPECTATE
+                                 </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 h-full min-h-0">
+<!-- Recent Highlights Section -->
+<section class="xl:col-span-2 flex flex-col min-h-0">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">movie</span> RECENT HIGHLIGHTS
+                        </h2>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded bg-[#281b21] hover:bg-[#3a2730] flex items-center justify-center text-white transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-[#281b21] hover:bg-[#3a2730] flex items-center justify-center text-white transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Highlight 1 -->
+<div class="relative aspect-video bg-[#281b21] rounded-lg overflow-hidden group cursor-pointer border border-transparent hover:border-primary/50 transition-all">
+<div class="absolute inset-0 bg-cover bg-center opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Retro gaming console close up" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBDxcuFcVSm3ox9Kwa92PUjxThY3wqz02HCNiqoaXgLJ-frv86FH74YQftxDAejRU4SIcyi--LRFf51r4ixfUSL_WyyaO1j8iR6L4ym_M8Je45XRvhAoYJVJrrJ_FJMEr-v8RTIM_zpEQi2OI0uZ4No99S0lDgIa7KjpTdoO6M0cv-woUDLNoLJAEh-sEUvRNl3NPlBuCNdUTq-2t0OfKIznWRezufXWtBSsRt_OnsbcI8DiYNhLBM19Y99lTCjmFItxo1sm4AO2ASv');"></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-primary/90 flex items-center justify-center shadow-[0_0_15px_rgba(255,46,150,0.6)]">
+<span class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+<div class="text-sm font-bold text-white">EP. 44: 1v3 CLUTCH</div>
+<div class="text-[10px] text-gray-300">By Null_Pointer • 2h ago</div>
+</div>
+<div class="absolute top-2 right-2 bg-black/70 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">03:42</div>
+</div>
+<!-- Highlight 2 -->
+<div class="relative aspect-video bg-[#281b21] rounded-lg overflow-hidden group cursor-pointer border border-transparent hover:border-secondary/50 transition-all">
+<div class="absolute inset-0 bg-cover bg-center opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Abstract code and data visualization" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0HTZmkukmXX89VjqoeBGYSmbHCqDqHk-D-TPyo9Z4Az3mMs6p_si5U5YsN4QBRh3yMd_2cQk6OTd9KNCjdrwHyUb1iWZ9K40LZuwNQmpLdw5hCL9JNGHWxqFoMKJsk_51vQXoVO16MLYrPBLziusckLxzvkIiPM1rEsDE_2e79iWxutQ7_GsfmTU8mqifDr5jxG0josMpkYSUeZ1sl-7OuuaCEtwL7KgEHUGYSwCOD7TjjlAvExSNi2L3iPBVr-4ZCYuJhP3baOG_');"></div>
+<div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<div class="w-12 h-12 rounded-full bg-secondary/90 flex items-center justify-center shadow-[0_0_15px_rgba(0,212,255,0.6)]">
+<span class="material-symbols-outlined text-black text-3xl">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black to-transparent">
+<div class="text-sm font-bold text-white">TOP 10 KNOCKOUTS</div>
+<div class="text-[10px] text-gray-300">Weekly Digest • 5h ago</div>
+</div>
+<div class="absolute top-2 right-2 bg-black/70 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold">12:05</div>
+</div>
+</div>
+</section>
+<!-- Global Leaderboard Sidebar -->
+<section class="xl:col-span-1 flex flex-col min-h-0 bg-[#1f1419] rounded-xl border border-[#3a2730] overflow-hidden">
+<div class="p-4 border-b border-[#3a2730] flex items-center justify-between bg-[#281b21]">
+<h2 class="text-sm font-bold tracking-wider text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-yellow-500">trophy</span> GLOBAL LEADERBOARD
+                        </h2>
+<select class="bg-transparent text-xs text-[#bc9aab] border-none focus:ring-0 cursor-pointer text-right p-0 font-mono">
+<option>THIS SEASON</option>
+<option>ALL TIME</option>
+</select>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-1">
+<!-- Rank 1 -->
+<div class="flex items-center gap-3 p-2 rounded-lg bg-[#281b21] border border-yellow-500/20 hover:bg-[#3a2730] transition-colors group">
+<div class="w-6 text-center font-bold text-yellow-500 text-lg italic">1</div>
+<div class="w-8 h-8 rounded bg-gray-700 overflow-hidden">
+<img alt="Avatar Leader 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8T-UZZ2KTXIz2x0pdpbJ06B0WEMXFaBB42nfHBKOMFWAmBPuz-5f_uTB2CQ-TA4erhlgXCMNAyzXQ8p8VB2e5BCc6NnbIaMfKEBq2CuafbuVCZYhc-v3psbBrXkqb0LGIWk2lBCifatDp-NzNkaRZj-tyqRrRZEelKn4bqkIO86Ru0iqWD9HiamrdidzQTfz7_r5K7wnq5OCcYlaPAnfaFHC2oqT1IMiZNcYj4pvU4YIbJxhKoh9tIDAnHxSjE4uD75x2XEFJrQnQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-bold text-white truncate">Cryptic_Main</div>
+<div class="text-[10px] text-green-400 font-mono flex items-center">
+<span class="material-symbols-outlined text-[10px] mr-0.5">arrow_upward</span> 24 MMR
+                                </div>
+</div>
+<div class="text-sm font-bold font-mono text-yellow-500">2450</div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#281b21] transition-colors group border border-transparent hover:border-[#3a2730]">
+<div class="w-6 text-center font-bold text-gray-400 text-lg italic">2</div>
+<div class="w-8 h-8 rounded bg-gray-700 overflow-hidden">
+<img alt="Avatar Leader 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8QaZQt7goY7XN0CfB6vxdADZ6iREbH1E7Yqq_1WmcxNCvq3tPE8gLXf64DjRJNEv-XgS2pVaML8CnEVVYUiaLoCgomU6-DOQbvk605wopCOWJuuyRn49mGG55_RoPD_O1lBpTtuRFyGcWpeKRd8BaVA0jg8JSkvk60R2Np5Ep8xn8VjfgXKC_wbywNGil9q3BJ2Ry2IjW6ImyAI6TYLo6xBhWhBrnh709A_VVldhB78nY4rFuJkGKhGJL91RiYZEEK9Otn_kCIV2"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-bold text-white truncate">Null_Pointer</div>
+<div class="text-[10px] text-green-400 font-mono flex items-center">
+<span class="material-symbols-outlined text-[10px] mr-0.5">arrow_upward</span> 12 MMR
+                                </div>
+</div>
+<div class="text-sm font-bold font-mono text-gray-400">2410</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#281b21] transition-colors group border border-transparent hover:border-[#3a2730]">
+<div class="w-6 text-center font-bold text-orange-700 text-lg italic">3</div>
+<div class="w-8 h-8 rounded bg-gray-700 overflow-hidden">
+<img alt="Avatar Leader 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkWew_nt14VZQvWiqqpxIJKCfjGvPre-1E_P6rukqHmZxIbRj7ya_GRrb1M6gmXCZWcLHk42Y2avXRnSLEjOvuPQUXh6K9AekR2NemWWnUYdpL0VrDVTL2lBw6q7HJao_qqTptIKpX3fx0CikQv_xi_2ua_3g30Xe5ReQrrGtnqU9iNEbu-CxfB0QIc6S2HnJZPHx2rA1M7BBkdZx07RLlT9oUsCZSa0ApQ8HCYOaoebsb2GC0izT0XosWC-3wSye4qgRERd6Y8k5G"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-bold text-white truncate">Glitch_Queen</div>
+<div class="text-[10px] text-red-400 font-mono flex items-center">
+<span class="material-symbols-outlined text-[10px] mr-0.5">arrow_downward</span> 8 MMR
+                                </div>
+</div>
+<div class="text-sm font-bold font-mono text-orange-700">2380</div>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#281b21] transition-colors group border border-transparent hover:border-[#3a2730]">
+<div class="w-6 text-center font-bold text-[#bc9aab] text-sm">4</div>
+<div class="w-8 h-8 rounded bg-gray-700 overflow-hidden">
+<img alt="Avatar Leader 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADYOXuA1bbF_sVKKTWD4B-M5hKYcpeWIarvrLX684KPG9-TvKNhnHXLUaFg_2uxu3rTZpq8sa3iJLVXPmA2CF4n0ycZ1ZhzCFrfP5iPH8DSVXQbZCDRxgQydtIRCq8kUcUZZFiWaT2noQCLbhUbMd3yrOyj01Oj1ggk7nO8EFvHEuba3XpAkTQymCWheUjv-mLxbDGfHTlrMumaZEvbTjn3o15N07NjZdi1xdwAr755XowhnmerVgqsY0HlzXZz8Xh_z0nS0lKFToG"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-bold text-[#bc9aab] truncate group-hover:text-white transition-colors">Cyber_Samurai</div>
+<div class="text-[10px] text-gray-500 font-mono">
+                                    -
+                                </div>
+</div>
+<div class="text-sm font-bold font-mono text-[#bc9aab]">2345</div>
+</div>
+<!-- Rank 5 -->
+<div class="flex items-center gap-3 p-2 rounded-lg hover:bg-[#281b21] transition-colors group border border-transparent hover:border-[#3a2730]">
+<div class="w-6 text-center font-bold text-[#bc9aab] text-sm">5</div>
+<div class="w-8 h-8 rounded bg-gray-700 overflow-hidden">
+<img alt="Avatar Leader 5" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB3bAeG6bpyrfFtSA-JUwVJoXLHMdMVnjFvuxP76tqGN94TNRvKlGOP5NpcAtyv3N_tqkoHhCNPqRadDtmB3_3-GijWhFbKDZBVrPPe_2dt4ED3SNy3WCd62WQwdxhWhc1JNyP5iL4L36tcS4au7QKqkaIpULXaOMytg2ufiW51KXPpIhS9pizTP2tvx6oXqaSrNBhsX1i8RBo9M8L4uNvnf6UiGQfKrT3osJp9pgfbtkSPJJZSuAzrm4xnwi7GGvkQcY4e7hYgGKM"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="text-sm font-bold text-[#bc9aab] truncate group-hover:text-white transition-colors">Binary_B</div>
+<div class="text-[10px] text-green-400 font-mono flex items-center">
+<span class="material-symbols-outlined text-[10px] mr-0.5">arrow_upward</span> 45 MMR
+                                </div>
+</div>
+<div class="text-sm font-bold font-mono text-[#bc9aab]">2310</div>
+</div>
+</div>
+<div class="p-2 border-t border-[#3a2730]">
+<button class="w-full py-2 text-xs font-bold text-[#bc9aab] hover:text-white hover:bg-[#3a2730] rounded transition-colors uppercase tracking-wide">
+                            View Full Standings
+                        </button>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

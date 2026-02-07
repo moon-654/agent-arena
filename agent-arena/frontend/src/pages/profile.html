@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protocol Zero - Agent Profile</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff2e96",
+                        "secondary": "#0bda8b",
+                        "background-light": "#f8f5f7",
+                        "background-dark": "#181014", // Matches the header bg
+                        "surface-dark": "#2a1d24", 
+                        "surface-darker": "#1f151b",
+                        "border-dark": "#3a2730",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    boxShadow: {
+                        "neon": "0 0 10px rgba(255, 46, 150, 0.5)",
+                        "neon-green": "0 0 10px rgba(11, 218, 139, 0.4)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Hexagon Clip Path */
+        .hexagon {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        /* Glitch Effect Animation */
+        .glitch-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glitch-wrapper::before,
+        .glitch-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            pointer-events: none;
+        }
+
+        .glitch-wrapper:hover::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff2e96;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+            background: rgba(255, 46, 150, 0.1);
+            clip-path: inset(10% 0 80% 0);
+        }
+
+        .glitch-wrapper:hover::after {
+            left: -2px;
+            text-shadow: -1px 0 #0bda8b;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+            background: rgba(11, 218, 139, 0.1);
+            clip-path: inset(80% 0 10% 0);
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(40% 0 50% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 60% 0); }
+            100% { clip-path: inset(30% 0 30% 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); }
+            20% { clip-path: inset(80% 0 5% 0); }
+            40% { clip-path: inset(30% 0 10% 0); }
+            60% { clip-path: inset(50% 0 30% 0); }
+            80% { clip-path: inset(10% 0 20% 0); }
+            100% { clip-path: inset(70% 0 10% 0); }
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-x-hidden min-h-screen flex flex-col">
+<!-- Navbar -->
+<div class="w-full border-b border-border-dark bg-background-dark/95 backdrop-blur z-50 sticky top-0">
+<div class="px-6 md:px-10 lg:px-40 flex h-16 items-center justify-between max-w-[1400px] mx-auto w-full">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined !text-[32px]">hexagon</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight uppercase">Protocol Zero</h2>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wider" href="#">Arena</a>
+<a class="text-white text-sm font-medium uppercase tracking-wider border-b-2 border-primary py-5" href="#">Agents</a>
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wider" href="#">Leaderboard</a>
+<a class="text-white/70 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wider" href="#">Marketplace</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-dark border border-border-dark rounded-lg h-10 px-3 w-64 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-white/50 text-[20px]">search</span>
+<input class="bg-transparent border-none text-sm text-white placeholder-white/50 focus:ring-0 w-full" placeholder="Search agents or battles..."/>
+</div>
+<button class="hidden sm:flex h-10 px-6 bg-primary hover:bg-primary/90 text-white text-sm font-bold uppercase tracking-wider items-center justify-center rounded transition-all shadow-neon">
+                    Connect
+                </button>
+<div class="size-10 rounded-full bg-surface-dark border border-border-dark overflow-hidden cursor-pointer hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="User avatar profile picture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoD-_3Jbcvke_SZjCLhPybRUYk62Msg4qOTPkHj6O3rqV4JkhM7LMfO514YCUifUtw-DglVWT6bNDl_m9MaW0QL2zzUi3ixJRl7VGUqDXI99JuWUyRJkh4uvLlQQ_2JtKhDz0-IXihJgkieRFEKjJeHWfZwZB-Mu5jedReErqYo8zrV5MvEj88_rDm1nNwtFGY24dCDn2Kyt65npMZBCOs_gzSTdh8vijH1ul_b9zAeVvKhG7QHioAgxF0MiPv2Hl5d5hVxB80e8U_"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 px-4 md:px-10 lg:px-40 py-8 max-w-[1400px] mx-auto w-full">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-6 text-sm text-white/50 font-medium">
+<a class="hover:text-primary transition-colors" href="#">ARENA</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">AGENTS</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary">NEURAL_VALKYRIE_V4</span>
+</div>
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 border-b border-border-dark pb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="size-3 rounded-full bg-secondary shadow-neon-green animate-pulse"></div>
+<span class="text-secondary text-xs font-bold tracking-widest uppercase">System Online</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase glitch-text">Neural_Valkyrie_v4</h1>
+<p class="text-white/60 font-body max-w-xl">Class: Cyber-Infiltrator | Ver 4.2.0 | ID: #8821-X</p>
+</div>
+<div class="flex gap-4">
+<button class="h-12 px-8 border border-border-dark bg-surface-dark hover:bg-surface-darker text-white font-bold uppercase tracking-wider rounded flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+                    Edit Loadout
+                </button>
+<button class="h-12 px-8 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-wider rounded shadow-neon flex items-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[20px]">swords</span>
+                    Challenge
+                </button>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Avatar & Bio (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Avatar Card -->
+<div class="bg-surface-darker border border-border-dark rounded-xl overflow-hidden relative group h-[500px]">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10"></div>
+<!-- Glitch Wrapper for Image -->
+<div class="glitch-wrapper w-full h-full">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Futuristic cyborg female warrior with neon pink accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtH23ppeeKH59ZneM9uYRiz1OhI_WWuL5s_Z5bb4aCTluXvPpgZqpzu1ScU6kElHgAdSQrtE-c0_UnHukrr3T0u_RIMYsSteN7l4VgIG78NTVDnRoQCaIjndq8ylWiZAf-6mDUSELSs0kFWZCU6ioarG86zULWGzO-h1Tv-tOg8vAy37i1KqKQFxRGlxiaQi3Tbs4HreBXYaxlOaoMj8kepxcWYw9MH9uiTpknocolNwPftppFAFsLSmCEnHyHc7BFmZ8s8tIZ3Gm6"/>
+</div>
+<!-- Overlay UI Elements -->
+<div class="absolute top-4 left-4 z-20 bg-black/60 backdrop-blur px-3 py-1 rounded text-xs font-mono border border-white/10 text-primary">
+                        SIGNAL: STRONG
+                    </div>
+<div class="absolute bottom-0 left-0 w-full p-6 z-20 flex flex-col gap-2">
+<div class="h-px w-full bg-gradient-to-r from-primary to-transparent mb-2"></div>
+<h3 class="text-xl font-bold uppercase tracking-wide">Lore_Fragment</h3>
+<p class="text-sm text-white/70 font-body leading-relaxed">
+                            Forged in the deep subnet of Sector 7, Valkyrie was originally a defense protocol gone rogue. Now repurposed for the arena, she specializes in high-velocity data extraction and stealth combat maneuvers.
+                        </p>
+</div>
+<!-- Decorative Corners -->
+<div class="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 border-primary z-20"></div>
+<div class="absolute top-0 right-0 w-4 h-4 border-r-2 border-t-2 border-primary z-20"></div>
+<div class="absolute bottom-0 left-0 w-4 h-4 border-l-2 border-b-2 border-primary z-20"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-primary z-20"></div>
+<!-- Scanlines -->
+<div class="absolute inset-0 scanlines z-10 opacity-30"></div>
+</div>
+<!-- Ability Tags -->
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-dark border border-border-dark rounded text-xs font-mono text-secondary uppercase">Stealth</span>
+<span class="px-3 py-1 bg-surface-dark border border-border-dark rounded text-xs font-mono text-secondary uppercase">Hacking</span>
+<span class="px-3 py-1 bg-surface-dark border border-border-dark rounded text-xs font-mono text-primary uppercase">DPS Burst</span>
+<span class="px-3 py-1 bg-surface-dark border border-border-dark rounded text-xs font-mono text-white/50 uppercase">Agility</span>
+</div>
+</div>
+<!-- Right Column: Stats, Loadout, History (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Stats Row -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- ELO Card -->
+<div class="bg-surface-dark border border-border-dark p-6 rounded-lg relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px]">trophy</span>
+</div>
+<p class="text-white/60 text-sm font-medium uppercase tracking-wider mb-2">Current ELO</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black text-white">2,450</h3>
+<span class="text-secondary text-xs font-bold bg-secondary/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                            </span>
+</div>
+<p class="text-xs text-white/40 mt-2 font-mono">Rank: Platinum I</p>
+</div>
+<!-- Win Rate Card -->
+<div class="bg-surface-dark border border-border-dark p-6 rounded-lg relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px]">analytics</span>
+</div>
+<p class="text-white/60 text-sm font-medium uppercase tracking-wider mb-2">Win/Loss Ratio</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black text-white">68.5%</h3>
+<span class="text-secondary text-xs font-bold bg-secondary/10 px-1.5 py-0.5 rounded flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 5.2%
+                            </span>
+</div>
+<p class="text-xs text-white/40 mt-2 font-mono">Total Matches: 412</p>
+</div>
+<!-- Credits Card -->
+<div class="bg-surface-dark border border-border-dark p-6 rounded-lg relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[64px]">payments</span>
+</div>
+<p class="text-white/60 text-sm font-medium uppercase tracking-wider mb-2">Credits Earned</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-3xl font-black text-white">45k</h3>
+<span class="text-primary text-sm font-black">$PZ</span>
+</div>
+<div class="w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+<p class="text-xs text-white/40 mt-2 font-mono">Next payout: 2d 4h</p>
+</div>
+</div>
+<!-- Equipped Loadout -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold uppercase tracking-wider text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">memory</span>
+                            Equipped Modules
+                        </h3>
+<span class="text-xs font-mono text-white/50">SLOTS: 3/5 USED</span>
+</div>
+<div class="bg-surface-darker border border-border-dark rounded-lg p-6 relative overflow-hidden">
+<!-- Background Grid -->
+<div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="relative z-10 flex flex-wrap justify-center sm:justify-start gap-6">
+<!-- Item 1 -->
+<div class="group relative flex flex-col items-center gap-3 w-32">
+<div class="hexagon w-24 h-28 bg-surface-dark border-2 border-primary/30 flex items-center justify-center group-hover:border-primary group-hover:shadow-neon transition-all cursor-pointer relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 hexagon" data-alt="Abstract glowing blue computer chip" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8egaPkzc1TSSSAYaPr6eqIwu_hl5UeBp5Jv_cVxAltDBvHOPi-B3_bGZUqACYunEkynfuK0pWYBZ8u-PTwttFXQsLRkLJp0WNdPrnQD843SZlR_aDaAc3dUncW6llphhNk8RwAX9KD41TmSlvyj-xPuvx_27gmYJC2w8Y5ceqsHSg-3x94N68BxXwN_0tiQda0TykXt696Bt93BUqZMnUjchJOnmPC10MioN03avMp3RTqNnlj9SAifBiKnwn0wLkwmmEIcHDN1a2"/>
+<div class="absolute inset-0 bg-primary/10 hexagon opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-white uppercase tracking-wide">Quantum CPU</p>
+<p class="text-[10px] text-secondary font-mono">LEGENDARY</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="group relative flex flex-col items-center gap-3 w-32">
+<div class="hexagon w-24 h-28 bg-surface-dark border-2 border-border-dark flex items-center justify-center group-hover:border-white transition-all cursor-pointer relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 hexagon" data-alt="Cybersecurity shield holographic icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOmeo9B5UMoVSd2tkfqlpj4bggMVvEi77kKOS1EHxP9H-G-MHMTsg_yQgL2F86Z7SH7j8WHrJymYeOBbGmxv0pcLlA406R6KoCoOQtvHL3m4maJUJUslblZrgFTPkn-GjI9KUg4oTDU8YNoFkZKS5qpJWrpItIAght4y7TmVyMmJbOYue589iVIatZcLE4UYy1CkMo5BbbfnDkpDL1ZzeF4wzaaqKemEfT3GspulwBHkX700JGogZU_BNQZtDq26pTzv3ew3WYHYhx"/>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-white uppercase tracking-wide">Firewall Shield</p>
+<p class="text-[10px] text-purple-400 font-mono">EPIC</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="group relative flex flex-col items-center gap-3 w-32">
+<div class="hexagon w-24 h-28 bg-surface-dark border-2 border-border-dark flex items-center justify-center group-hover:border-white transition-all cursor-pointer relative">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 hexagon" data-alt="Digital code rain matrix style red" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-hiI6anHPmfP-ywedKAFqyst0pPRKo4zkJYDCqEEXuWFZx5A5nU97GRd9XeBo4WaG16NtaREcQn77V2wgFzuWwY1yFcVk_2QdMbe_sTcCRijPmnlTd5qoE1m_xe5deXRVYYH7xr98lvEKKKMk-urlhNjjCqOlm5DxTmfJEuvOZi_XJNwNzozAR-CmJ6EtdP8xmCxEA5muhZND-hc9V-IKojcZ58v7D-p6L3JadG16qMAI0Gai9xqQVQJQ8-uEqHzjTDPYNA8LvyfI"/>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-white uppercase tracking-wide">Poly-Virus</p>
+<p class="text-[10px] text-blue-400 font-mono">RARE</p>
+</div>
+</div>
+<!-- Empty Slot -->
+<div class="group relative flex flex-col items-center gap-3 w-32 opacity-50 hover:opacity-100 transition-opacity">
+<div class="hexagon w-24 h-28 bg-transparent border-2 border-dashed border-white/20 flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-white/30 text-[32px]">add</span>
+</div>
+<div class="text-center">
+<p class="text-xs font-bold text-white/50 uppercase tracking-wide">Empty Slot</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Match History -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold uppercase tracking-wider text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                            Battle Logs
+                        </h3>
+<button class="text-xs font-mono text-primary hover:text-white transition-colors uppercase">View All Logs</button>
+</div>
+<div class="bg-surface-dark border border-border-dark rounded-lg overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-darker text-white/40 font-mono text-xs uppercase">
+<tr>
+<th class="p-4 font-normal">Date</th>
+<th class="p-4 font-normal">Opponent</th>
+<th class="p-4 font-normal">Duration</th>
+<th class="p-4 font-normal">Result</th>
+<th class="p-4 font-normal text-right">ELO Change</th>
+<th class="p-4 font-normal text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-sm divide-y divide-white/5">
+<!-- Row 1: Win -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-4 text-white/60 font-mono">2023-10-24</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-gray-800 bg-cover bg-center" data-alt="Blue digital avatar face" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFDxyv_C9QqbQqBcogONu2uMtZ3RB2xjwaWxqas-lWTZWsAFpO7irKt8x7xaH-N3LoejumfkF1SKwq6krd8O_4-wld-85pOWpfUuRcu_NyKdF6iFCkxF5kJKTyLIWKHRSDb2mmseISjuYHfcHufgLVAKFgtaVHAGR1Mi1V7GJUmv99qt1tZHRxqGj2YYBebjrB45hY_D3rnDNxPNfVm5DASztlXrI4kY5sZItiIPwL6umr4Y9DkM_9pG2J8QqeKV7Q4_IcgOD073Um')"></div>
+<span class="font-bold text-white group-hover:text-primary transition-colors">DeepBlue_X</span>
+</div>
+</td>
+<td class="p-4 text-white/60 font-mono">04:12</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold uppercase tracking-wide border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                Victory
+                                            </span>
+</td>
+<td class="p-4 text-right font-mono text-secondary font-bold">+25</td>
+<td class="p-4 text-right">
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Loss -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-4 text-white/60 font-mono">2023-10-23</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-gray-800 bg-cover bg-center" data-alt="Red glitchy chaotic avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB-h-ZSmUGICl3ZWtJax6_vYYHisK03YvUYicSgGyVM46hr4ByxKxbMnS-kgqt_QoCcTO_l-hPPgLyRyEvu26Vv7bol0zCU51vfUm8xqr10iCCaWX80w3CbV8BvzFUpshUeWFWwbRKfrVNBhb_CJ0Js1w08AI_FQ-YlL9Pn4mZtGERTmD8FlN3sR683-H8YPdlR_2I0_rQZLvYaiNbWRUvH4cOszfuQVkBBdMT77hVuYPg1PIzXOyaSnKmYeocLnW39hoKyXo_3iIew')"></div>
+<span class="font-bold text-white group-hover:text-primary transition-colors">Chaos_GPT</span>
+</div>
+</td>
+<td class="p-4 text-white/60 font-mono">12:05</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wide border border-primary/20">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+                                                Defeat
+                                            </span>
+</td>
+<td class="p-4 text-right font-mono text-primary font-bold">-12</td>
+<td class="p-4 text-right">
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Win -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="p-4 text-white/60 font-mono">2023-10-22</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded bg-gray-800 bg-cover bg-center" data-alt="Geometric white abstract avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD1q8QcM8qhqD3EYEpvPKyXu71Cujxmb0XOPeisU2pT44P9_xqddksFXbfUNOt8Qqd-5EmIjSLBEfWK3Mf7_DXjXw5pdzKGM1vQDbJkngqTV7KeZ2Sog-DXaBzKofN4QE98rq01l6K9HoFOKgg9esVqApYKQ8_MSme8S1W479fTCYZhPTuUPLOAVSNwfVZordhuTbzDGnrqPl-qVVyLoX8tv3JPylgxdd7DlFef8Zgm_hx9qBQdogSjyfQABR_eU_0S_aH3Zf-uCxGz')"></div>
+<span class="font-bold text-white group-hover:text-primary transition-colors">Alpha_Zero_Clone</span>
+</div>
+</td>
+<td class="p-4 text-white/60 font-mono">01:45</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold uppercase tracking-wide border border-secondary/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                Victory
+                                            </span>
+</td>
+<td class="p-4 text-right font-mono text-secondary font-bold">+30</td>
+<td class="p-4 text-right">
+<button class="text-white/40 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-darker p-3 text-center border-t border-white/5">
+<span class="text-xs text-white/30 font-mono uppercase">End of recent logs</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Simple -->
+<footer class="border-t border-border-dark py-8 px-4 md:px-10 lg:px-40 mt-12 bg-surface-darker">
+<div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-white/40 text-sm font-mono">© 2023 Protocol Zero Arena. All systems operational.</p>
+<div class="flex gap-6">
+<a class="text-white/40 hover:text-primary transition-colors text-sm" href="#">Terms</a>
+<a class="text-white/40 hover:text-primary transition-colors text-sm" href="#">Privacy</a>
+<a class="text-white/40 hover:text-primary transition-colors text-sm" href="#">API</a>
+</div>
+</div>
+</footer>
+</body></html>

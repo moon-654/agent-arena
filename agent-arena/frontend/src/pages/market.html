@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protocol Zero // Cyber Items &amp; Proposals</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff2e96",
+                        "primary-dark": "#d41c76",
+                        "background-light": "#f8f5f7",
+                        "background-dark": "#181014", 
+                        "surface-dark": "#281b21",
+                        "surface-darker": "#1f1519",
+                        "border-dark": "#3a2730",
+                        "accent-success": "#00f0ff",
+                        "accent-danger": "#ff2a2a",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for cyberpunk feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #181014; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a2730; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2e96; 
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(255, 46, 150, 0.5);
+        }
+        .neon-box-glow {
+            box-shadow: 0 0 15px rgba(255, 46, 150, 0.15);
+        }
+        .grid-bg {
+            background-image: linear-gradient(rgba(58, 39, 48, 0.3) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(58, 39, 48, 0.3) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark/95 backdrop-blur px-6 py-3 z-50 shrink-0">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 flex items-center justify-center text-primary neon-text-glow">
+<span class="material-symbols-outlined text-3xl">token</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-wider">PROTOCOL ZERO <span class="text-white/40">//</span> AGENT ARENA</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-1 bg-surface-darker p-1 rounded-lg border border-border-dark">
+<a class="text-gray-400 hover:text-white hover:bg-white/5 px-4 py-2 text-sm font-bold uppercase rounded transition-colors" href="#">Dashboard</a>
+<a class="text-gray-400 hover:text-white hover:bg-white/5 px-4 py-2 text-sm font-bold uppercase rounded transition-colors" href="#">Arena</a>
+<a class="bg-primary/20 text-primary border border-primary/40 px-4 py-2 text-sm font-bold uppercase rounded shadow-[0_0_10px_rgba(255,46,150,0.3)]" href="#">Armory</a>
+<a class="text-gray-400 hover:text-white hover:bg-white/5 px-4 py-2 text-sm font-bold uppercase rounded transition-colors" href="#">Leaderboard</a>
+</nav>
+<div class="flex gap-3 border-l border-border-dark pl-6">
+<div class="flex items-center gap-2">
+<span class="text-xs text-gray-400 font-mono tracking-widest">CREDITS</span>
+<span class="text-primary font-bold font-mono text-lg neon-text-glow">24,500 CR</span>
+</div>
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-surface-dark border border-border-dark hover:border-primary/50 text-white transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-lg size-10 border border-border-dark" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJ-62T5LYbNNBx97caT_Qn0c8AgoYVeROECFWbg9FI4JB1spMFl8ZUk2NI_2Kw9Q9pponpIEb-7RbIVRL0pRJKCIPYCy_0vvTvyVKaMI77IcwR-cEmv_iY6OA9nXH070GC8bBqdbfv2zcM8ZW0VJShmynEPrEntPWwIiXpwfAkkXlpvJIaC2XWVIdIjO5mMI-x4GOuZgR1gT9EdBNaDzr3IWJg_ZnfmJHClREE4I77w-GVSSIh26XEC03QxiCzMXf19YCUlGwvkqvS");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex flex-1 overflow-hidden relative">
+<!-- Background Grid Pattern -->
+<div class="absolute inset-0 grid-bg pointer-events-none opacity-20 z-0"></div>
+<div class="flex w-full h-full gap-6 p-6 z-10">
+<!-- LEFT PANEL: ARMORY / SHOP -->
+<section class="flex flex-col w-full lg:w-2/3 h-full gap-4">
+<div class="flex justify-between items-end mb-2">
+<div>
+<h1 class="text-3xl font-black tracking-tighter uppercase mb-1">Armory_Access <span class="text-primary">//</span> Vendor_V1</h1>
+<p class="text-gray-400 text-sm max-w-md">Acquire combat assets and neural upgrades. All sales final.</p>
+</div>
+<!-- Filter Tabs -->
+<div class="flex gap-2">
+<button class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold tracking-wide shadow-[0_0_15px_rgba(255,46,150,0.4)]">
+<span class="material-symbols-outlined text-lg">grid_view</span>
+                            ALL
+                        </button>
+<button class="flex items-center gap-2 bg-surface-dark hover:bg-surface-dark/80 border border-border-dark text-gray-300 px-4 py-2 rounded-lg text-sm font-bold tracking-wide transition-colors">
+<span class="material-symbols-outlined text-lg text-accent-danger">swords</span>
+                            ATTACK
+                        </button>
+<button class="flex items-center gap-2 bg-surface-dark hover:bg-surface-dark/80 border border-border-dark text-gray-300 px-4 py-2 rounded-lg text-sm font-bold tracking-wide transition-colors">
+<span class="material-symbols-outlined text-lg text-accent-success">shield</span>
+                            DEFENSE
+                        </button>
+<button class="flex items-center gap-2 bg-surface-dark hover:bg-surface-dark/80 border border-border-dark text-gray-300 px-4 py-2 rounded-lg text-sm font-bold tracking-wide transition-colors">
+<span class="material-symbols-outlined text-lg text-yellow-400">medical_services</span>
+                            SUPPORT
+                        </button>
+</div>
+</div>
+<!-- Scrollable Item Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-auto pr-2 pb-20">
+<!-- Item Card 1 (Attack) -->
+<div class="group relative bg-surface-dark border border-border-dark hover:border-primary/60 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,46,150,0.15)] flex flex-col">
+<div class="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur border border-primary/30 text-primary px-2 py-1 rounded text-xs font-mono font-bold">
+                            ATTACK
+                        </div>
+<div class="h-40 bg-surface-darker relative overflow-hidden group-hover:opacity-90 transition-opacity">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Abstract digital blade glowing red" class="w-full h-full object-cover opacity-80 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN7LlQEY5J1hEyZovqtAPbdJBMYzpGQ1fz9Ie8OqxVXdawL0Asg-RtPS0dVZwpawkfZTTzbNtZEkhVBIZUBhdnugWXC7aHFe9FhLMRfky2zEam9_D-1Mqhj5dwy2OyETeTuuoyZBwpAgHSNFTsH2cFoiDn_BTpooshVGV10csT6Hn3qTHNROQsgoKdNJi97Df6EVGj7LkA_CStO__wzlpiOf3MoUvkW6QGSv5NWt2DlulxKXaW1MT0LOwAYtMJ-tcKvafB4x4DFQYK"/>
+<!-- Holographic Icon Overlay -->
+<div class="absolute inset-0 flex items-center justify-center z-10 text-white/20 group-hover:text-primary/40 transition-colors duration-500">
+<span class="material-symbols-outlined text-[80px]">swords</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">NEURAL KATANA [MK-IV]</h3>
+</div>
+<div class="flex items-center gap-3 text-xs text-gray-400 font-mono mb-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">bolt</span> 500 DMG</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">speed</span> FAST</span>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-2 border-t border-white/5">
+<div class="text-primary font-bold font-mono text-lg drop-shadow-[0_0_5px_rgba(255,46,150,0.6)]">2,500 CR</div>
+<button class="bg-white/5 hover:bg-primary hover:text-white text-white border border-white/10 px-4 py-1.5 rounded text-sm font-bold uppercase transition-all">
+                                    Purchase
+                                </button>
+</div>
+</div>
+</div>
+<!-- Item Card 2 (Defense) -->
+<div class="group relative bg-surface-dark border border-border-dark hover:border-accent-success/60 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] flex flex-col">
+<div class="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur border border-accent-success/30 text-accent-success px-2 py-1 rounded text-xs font-mono font-bold">
+                            DEFENSE
+                        </div>
+<div class="h-40 bg-surface-darker relative overflow-hidden group-hover:opacity-90 transition-opacity">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Blue digital grid shield pattern" class="w-full h-full object-cover opacity-60 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgcxum6HDbaMpzLPBJPewsIQKiNTCEt6rI_yfKQc2x4ne1SmQoeblMUnxofe5jZcJFoj7GY-kUPV0oC4bNvChpk1k1ffJga47xsWSd6R250dLZe55P-PPukW7Bpo5q5XmJhiSOPq79TSxIupP2EI5oJQ5qo3FEpPFpycnCb8hgEAJ-eQs4B9R3N5ZR6G2gMyF93o7bapbLaQpvIx6JZZ2Yto6Pj0WfLTVBihiCPcFkyu_7qT1_8h8Yz5p77E6xPGxHxIJzFVXOxqhT"/>
+<div class="absolute inset-0 flex items-center justify-center z-10 text-white/20 group-hover:text-accent-success/40 transition-colors duration-500">
+<span class="material-symbols-outlined text-[80px]">shield</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-accent-success transition-colors">FIREWALL SHIELD</h3>
+</div>
+<div class="flex items-center gap-3 text-xs text-gray-400 font-mono mb-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">security</span> +200 ARMOR</span>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-2 border-t border-white/5">
+<div class="text-accent-success font-bold font-mono text-lg drop-shadow-[0_0_5px_rgba(0,240,255,0.6)]">1,200 CR</div>
+<button class="bg-white/5 hover:bg-accent-success hover:text-black text-white border border-white/10 px-4 py-1.5 rounded text-sm font-bold uppercase transition-all">
+                                    Purchase
+                                </button>
+</div>
+</div>
+</div>
+<!-- Item Card 3 (Support) -->
+<div class="group relative bg-surface-dark border border-border-dark hover:border-yellow-400/60 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(250,204,21,0.15)] flex flex-col">
+<div class="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur border border-yellow-400/30 text-yellow-400 px-2 py-1 rounded text-xs font-mono font-bold">
+                            SUPPORT
+                        </div>
+<div class="h-40 bg-surface-darker relative overflow-hidden group-hover:opacity-90 transition-opacity">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Yellow circuit board close up" class="w-full h-full object-cover opacity-60 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdooZx7olA19GVJVM3BPLqcjzJxjrVWzIotz9k8nzwLvYzZj3F1UEymq9UjBntKkuCpXnDyZki5JeXIT-qenlkhtvzY6uUHvWHcvT340oCLqMv5Vz9nH9k57B9_hJoLXUNZyJD7JDrDPhzpZ80K7B92mF0CbhTqStYMablKF_AnERHkX2GMLt1V4YlzptEh5CaIVWAaEdj3SwiaQcIOdaJAIDSpWYn04Us9WgDkYnp4HIzxOS6Z-u18bAFGAEqLZH9k9zuHr-yIhH-"/>
+<div class="absolute inset-0 flex items-center justify-center z-10 text-white/20 group-hover:text-yellow-400/40 transition-colors duration-500">
+<span class="material-symbols-outlined text-[80px]">memory</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">OVERCLOCK STIM</h3>
+</div>
+<div class="flex items-center gap-3 text-xs text-gray-400 font-mono mb-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">timer</span> +20% SPEED</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 30s DUR</span>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-2 border-t border-white/5">
+<div class="text-yellow-400 font-bold font-mono text-lg drop-shadow-[0_0_5px_rgba(250,204,21,0.6)]">800 CR</div>
+<button class="bg-white/5 hover:bg-yellow-400 hover:text-black text-white border border-white/10 px-4 py-1.5 rounded text-sm font-bold uppercase transition-all">
+                                    Purchase
+                                </button>
+</div>
+</div>
+</div>
+<!-- Item Card 4 (Attack) -->
+<div class="group relative bg-surface-dark border border-border-dark hover:border-primary/60 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,46,150,0.15)] flex flex-col">
+<div class="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur border border-primary/30 text-primary px-2 py-1 rounded text-xs font-mono font-bold">
+                            ATTACK
+                        </div>
+<div class="h-40 bg-surface-darker relative overflow-hidden group-hover:opacity-90 transition-opacity">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Red laser beam dark background" class="w-full h-full object-cover opacity-60 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUFF2W_T32qhOhEt3rvIPyT9Cw1MlvFCcERYhxuhWPKDOPogekC4uWsTLn8Bni2XHwmVhMQQ-i-85A-lYNJP0qXr83F-wlGw4VMbRlH-zBsPLOEXQbZTkGR7hFCF3jPsrQEKEvHC2645hL4YZ_7esqoHzy37Qf1KO9abeQ2DJvvapWd-IjASTGI6qsC6tVEUz4-4Oi08Ley0zIXOYKhJOK84Xxt7oCJwI00vZhT3Nz0a2hrt_zfiVutFwd8ciuu_8qlmdImIpWuYi4"/>
+<div class="absolute inset-0 flex items-center justify-center z-10 text-white/20 group-hover:text-primary/40 transition-colors duration-500">
+<span class="material-symbols-outlined text-[80px]">my_location</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-primary transition-colors">PLASMA SNIPER</h3>
+</div>
+<div class="flex items-center gap-3 text-xs text-gray-400 font-mono mb-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">adjust</span> 1200 DMG</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">visibility</span> LONG RNG</span>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-2 border-t border-white/5">
+<div class="text-primary font-bold font-mono text-lg drop-shadow-[0_0_5px_rgba(255,46,150,0.6)]">4,500 CR</div>
+<button class="bg-white/5 hover:bg-primary hover:text-white text-white border border-white/10 px-4 py-1.5 rounded text-sm font-bold uppercase transition-all">
+                                    Purchase
+                                </button>
+</div>
+</div>
+</div>
+<!-- Item Card 5 (Defense) -->
+<div class="group relative bg-surface-dark border border-border-dark hover:border-accent-success/60 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,240,255,0.15)] flex flex-col">
+<div class="absolute top-3 right-3 z-20 bg-black/60 backdrop-blur border border-accent-success/30 text-accent-success px-2 py-1 rounded text-xs font-mono font-bold">
+                            DEFENSE
+                        </div>
+<div class="h-40 bg-surface-darker relative overflow-hidden group-hover:opacity-90 transition-opacity">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent z-10"></div>
+<img alt="Abstract network sphere" class="w-full h-full object-cover opacity-60 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAWt1IK5HvBd6fFtYxD_3U8Zy4tFgA330sKOSAzhqZiM1-CGd6r6Wh80MBpUQF_riTHf6kR42zFL7SeWV_hUx7sMEWWMPcLoqPbylEtSzMQhxlhoNit__4Yo5XH6LxQR-PRpzYQxNYI4dR4WkOYo4VQ1R7JH5_nUqO_qnfi99bD_oGwCa8HlpsDEhByF_vPgT3D2s8rPZQdS6BK7l5OKc00u4OaEf27O7y0BZ2CmhsAGfeavPaw2UbF9_L2l-kouZ-kYsT5x9XYNbD"/>
+<div class="absolute inset-0 flex items-center justify-center z-10 text-white/20 group-hover:text-accent-success/40 transition-colors duration-500">
+<span class="material-symbols-outlined text-[80px]">gpp_maybe</span>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow gap-2">
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-bold text-white group-hover:text-accent-success transition-colors">KINETIC DAMPER</h3>
+</div>
+<div class="flex items-center gap-3 text-xs text-gray-400 font-mono mb-2">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">compress</span> -40% IMPACT</span>
+</div>
+<div class="mt-auto flex items-center justify-between gap-3 pt-2 border-t border-white/5">
+<div class="text-accent-success font-bold font-mono text-lg drop-shadow-[0_0_5px_rgba(0,240,255,0.6)]">1,800 CR</div>
+<button class="bg-white/5 hover:bg-accent-success hover:text-black text-white border border-white/10 px-4 py-1.5 rounded text-sm font-bold uppercase transition-all">
+                                    Purchase
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: COMMUNITY PROPOSALS / VOTING -->
+<section class="hidden lg:flex flex-col w-1/3 h-full border-l border-border-dark pl-6 relative">
+<!-- Header -->
+<div class="flex items-end justify-between mb-6">
+<div>
+<h2 class="text-xl font-black tracking-tighter uppercase text-white mb-1">Community R&amp;D <span class="text-gray-500">//</span> VOTING_PROTOCOL</h2>
+<div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
+<span class="w-2 h-2 rounded-full bg-accent-success animate-pulse"></span>
+<span>VOTING CYCLE ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- Suggest Button -->
+<button class="w-full mb-6 group relative overflow-hidden rounded-lg bg-surface-dark border border-dashed border-primary/40 p-4 text-center transition-all hover:border-primary hover:bg-primary/5">
+<div class="relative z-10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">add_circle</span>
+<span class="font-bold tracking-wide text-white">SUGGEST NEW ITEM PROTOCOL</span>
+</div>
+</button>
+<!-- Proposals List -->
+<div class="flex flex-col gap-4 overflow-y-auto pr-2 pb-20">
+<!-- Proposal Item 1 -->
+<div class="bg-surface-dark border border-border-dark p-4 rounded-xl flex flex-col gap-3 hover:border-white/20 transition-colors">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-white text-lg">STEALTH MODULE V2</h3>
+<p class="text-xs text-gray-400 font-mono">Proposed by: <span class="text-primary">@NeonGhost</span></p>
+</div>
+<div class="bg-surface-darker px-2 py-1 rounded text-xs font-mono text-gray-300 border border-border-dark">
+                                24h LEFT
+                            </div>
+</div>
+<p class="text-sm text-gray-400 leading-tight">Passive invisibility for 5 seconds after taking damage. Cooldown 60s.</p>
+<!-- Voting UI -->
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex justify-between text-xs font-bold font-mono">
+<span class="text-accent-success">75% SUPPORT</span>
+<span class="text-accent-danger">25% OPPOSE</span>
+</div>
+<div class="h-2 w-full bg-surface-darker rounded-full overflow-hidden flex">
+<div class="bg-accent-success h-full shadow-[0_0_10px_rgba(0,240,255,0.5)]" style="width: 75%"></div>
+<div class="bg-accent-danger h-full" style="width: 25%"></div>
+</div>
+<div class="flex gap-2 mt-1">
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-success/10 border border-border-dark hover:border-accent-success text-gray-400 hover:text-accent-success py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:-translate-y-0.5 transition-transform">thumb_up</span>
+<span class="text-xs font-bold">APPROVE</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-danger/10 border border-border-dark hover:border-accent-danger text-gray-400 hover:text-accent-danger py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:translate-y-0.5 transition-transform">thumb_down</span>
+<span class="text-xs font-bold">REJECT</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Proposal Item 2 -->
+<div class="bg-surface-dark border border-border-dark p-4 rounded-xl flex flex-col gap-3 hover:border-white/20 transition-colors">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-white text-lg">GLITCH GRENADE</h3>
+<p class="text-xs text-gray-400 font-mono">Proposed by: <span class="text-primary">@ZeroCool</span></p>
+</div>
+<div class="bg-surface-darker px-2 py-1 rounded text-xs font-mono text-gray-300 border border-border-dark">
+                                4h LEFT
+                            </div>
+</div>
+<p class="text-sm text-gray-400 leading-tight">Disables enemy UI and radar for 3 seconds. Area of effect.</p>
+<!-- Voting UI -->
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex justify-between text-xs font-bold font-mono">
+<span class="text-accent-success">40% SUPPORT</span>
+<span class="text-accent-danger">60% OPPOSE</span>
+</div>
+<div class="h-2 w-full bg-surface-darker rounded-full overflow-hidden flex">
+<div class="bg-accent-success h-full" style="width: 40%"></div>
+<div class="bg-accent-danger h-full shadow-[0_0_10px_rgba(255,42,42,0.5)]" style="width: 60%"></div>
+</div>
+<div class="flex gap-2 mt-1">
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-success/10 border border-border-dark hover:border-accent-success text-gray-400 hover:text-accent-success py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:-translate-y-0.5 transition-transform">thumb_up</span>
+<span class="text-xs font-bold">APPROVE</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-danger/10 border border-border-dark hover:border-accent-danger text-gray-400 hover:text-accent-danger py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:translate-y-0.5 transition-transform">thumb_down</span>
+<span class="text-xs font-bold">REJECT</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Proposal Item 3 -->
+<div class="bg-surface-dark border border-border-dark p-4 rounded-xl flex flex-col gap-3 hover:border-white/20 transition-colors">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-bold text-white text-lg">NANITE REPAIR SWARM</h3>
+<p class="text-xs text-gray-400 font-mono">Proposed by: <span class="text-primary">@MedicMain</span></p>
+</div>
+<div class="bg-surface-darker px-2 py-1 rounded text-xs font-mono text-gray-300 border border-border-dark">
+                                12h LEFT
+                            </div>
+</div>
+<p class="text-sm text-gray-400 leading-tight">Healing drone that follows the player. Slow heal rate but persistent.</p>
+<!-- Voting UI -->
+<div class="flex flex-col gap-2 mt-1">
+<div class="flex justify-between text-xs font-bold font-mono">
+<span class="text-accent-success">88% SUPPORT</span>
+<span class="text-accent-danger">12% OPPOSE</span>
+</div>
+<div class="h-2 w-full bg-surface-darker rounded-full overflow-hidden flex">
+<div class="bg-accent-success h-full shadow-[0_0_10px_rgba(0,240,255,0.5)]" style="width: 88%"></div>
+<div class="bg-accent-danger h-full" style="width: 12%"></div>
+</div>
+<div class="flex gap-2 mt-1">
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-success/10 border border-border-dark hover:border-accent-success text-gray-400 hover:text-accent-success py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:-translate-y-0.5 transition-transform">thumb_up</span>
+<span class="text-xs font-bold">APPROVE</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1 bg-surface-darker hover:bg-accent-danger/10 border border-border-dark hover:border-accent-danger text-gray-400 hover:text-accent-danger py-1.5 rounded transition-all group">
+<span class="material-symbols-outlined text-lg group-hover:translate-y-0.5 transition-transform">thumb_down</span>
+<span class="text-xs font-bold">REJECT</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Modal (Hidden by default, shown for structure) -->
+<!-- In a real app, this would be toggled via JS -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" id="modal">
+<div class="bg-surface-dark border border-primary w-full max-w-lg rounded-xl shadow-[0_0_50px_rgba(255,46,150,0.2)] p-6 relative">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="text-2xl font-black text-white mb-6 uppercase tracking-tight">Suggest New Protocol</h2>
+<div class="flex flex-col gap-4">
+<div>
+<label class="text-xs font-bold text-gray-400 uppercase mb-1 block">Item Name</label>
+<input class="w-full bg-surface-darker border border-border-dark rounded p-3 text-white focus:border-primary focus:ring-0 outline-none placeholder-gray-600 font-mono" placeholder="Ex: Phase Shift Boots" type="text"/>
+</div>
+<div>
+<label class="text-xs font-bold text-gray-400 uppercase mb-1 block">Category</label>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-darker border border-primary text-primary py-2 rounded font-bold text-sm">ATTACK</button>
+<button class="flex-1 bg-surface-darker border border-border-dark text-gray-400 hover:text-white py-2 rounded font-bold text-sm">DEFENSE</button>
+<button class="flex-1 bg-surface-darker border border-border-dark text-gray-400 hover:text-white py-2 rounded font-bold text-sm">SUPPORT</button>
+</div>
+</div>
+<div>
+<label class="text-xs font-bold text-gray-400 uppercase mb-1 block">Description</label>
+<textarea class="w-full bg-surface-darker border border-border-dark rounded p-3 text-white focus:border-primary focus:ring-0 outline-none placeholder-gray-600 font-mono h-24" placeholder="Describe the item's function and stats..."></textarea>
+</div>
+<button class="bg-primary hover:bg-primary-dark text-white font-bold py-3 rounded mt-2 shadow-[0_0_15px_rgba(255,46,150,0.4)] transition-all">
+                    SUBMIT TO NETWORK
+                </button>
+</div>
+</div>
+</div>
+</body></html>

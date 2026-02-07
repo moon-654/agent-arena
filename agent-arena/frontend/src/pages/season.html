@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agent Arena: Season 1</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ff2e96",
+                        "accent-lime": "#ccff00",
+                        "accent-blue": "#00f0ff",
+                        "background-light": "#f8f5f7",
+                        "background-dark": "#0f0b10", 
+                        "surface-dark": "#1a1419",
+                        "surface-darker": "#140e13",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    backgroundImage: {
+                        'cyber-grid': "radial-gradient(circle at 50% 50%, rgba(255, 46, 150, 0.05) 0%, transparent 50%), linear-gradient(0deg, transparent 24%, rgba(255, 46, 150, .03) 25%, rgba(255, 46, 150, .03) 26%, transparent 27%, transparent 74%, rgba(255, 46, 150, .03) 75%, rgba(255, 46, 150, .03) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 46, 150, .03) 25%, rgba(255, 46, 150, .03) 26%, transparent 27%, transparent 74%, rgba(255, 46, 150, .03) 75%, rgba(255, 46, 150, .03) 76%, transparent 77%, transparent)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for cyberpunk feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0b10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff2e96;
+        }
+        
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(255, 46, 150, 0.5);
+        }
+        .border-glow {
+            box-shadow: 0 0 15px rgba(255, 46, 150, 0.2);
+        }
+        .lime-glow {
+            box-shadow: 0 0 15px rgba(204, 255, 0, 0.15);
+        }
+        .blue-glow {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 bg-background-dark/90 backdrop-blur-md px-6 py-4 lg:px-10">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary animate-pulse">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-wider uppercase">Agent Arena</h2>
+</div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex flex-1 justify-center gap-8">
+<nav class="flex items-center gap-8">
+<a class="text-white/70 hover:text-accent-blue transition-colors text-sm font-medium uppercase tracking-wide" href="#">Arena</a>
+<a class="text-white/70 hover:text-accent-blue transition-colors text-sm font-medium uppercase tracking-wide" href="#">Agents</a>
+<a class="text-white/70 hover:text-accent-blue transition-colors text-sm font-medium uppercase tracking-wide" href="#">Marketplace</a>
+<a class="text-primary text-sm font-bold uppercase tracking-wide border-b-2 border-primary pb-1" href="#">Season 1</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-sm h-9 px-4 bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-white transition-all text-xs font-bold uppercase tracking-wider group">
+<span class="truncate mr-2">Deploy Agent</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">rocket_launch</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 ring-2 ring-white/10" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDr-Ee0YzKRCyzdnaKRZRsGUGuGTAkSY9aQ4rhfvrPqtmSgA0WA99GAL0XmPvMJ-_In3zpTqMpNuUAob4TpdUKf1vrrsk0Vg7n-x63Fx_ZcmeJ6CtWHJLcI3mZ2KnpAXkyXSgsJbgv1LMYkvhW1Nqrk1H2v_RNfyN50VyMIvfwWVOPICogxgtZVDjawxbQc1_0lI_iIsU485DK1jKP5pXy2gxtLnWAF8--6cUHVKvUqmARZgNhg2bvgD07iMqDdfsLe32_N6je6PTeZ");'></div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1400px] mx-auto px-4 md:px-8 py-8 flex flex-col gap-12 bg-cyber-grid bg-[length:50px_50px]">
+<!-- Hero Section: Timer & Title -->
+<section class="relative w-full rounded-2xl overflow-hidden border border-white/5 bg-surface-darker shadow-2xl">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img alt="Cyberpunk city digital abstract background" class="w-full h-full object-cover opacity-30 mix-blend-luminosity" data-alt="Abstract digital grid background in dark cyberpunk style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoNkQMWuk6WYTJEM0SeXFK8yBTXqpUBuA31uQulJkJB9fbcnlHGkeleEljfujxHU3c-luKRphf4409TrnbsHaCp3LCxsVWnqmzWwKaMvbVek6j0nrSAcKWXVwEMgQxtEZCAhUsXlBdo41URE9AM8EqGPoW6Ncw271BizSSL5uO9WCfNnz45l1cOWhk-YEXZOlmBG7Ly4j-iXIzHiknDQpsAunt04cbZvmqrKF63EsEwRKRVotHanCzfqVGqEbPg1ncG8wjPPRKzq7-"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark via-transparent to-background-dark"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center justify-center py-16 px-4 md:py-24 text-center">
+<div class="mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 border border-primary/50 backdrop-blur-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-xs font-bold text-primary tracking-widest uppercase">Season Live</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-black text-white mb-4 tracking-tighter uppercase glitch-text" data-text="PROTOCOL ZERO">
+                    PROTOCOL ZERO
+                </h1>
+<p class="text-accent-blue/80 font-medium tracking-widest text-sm md:text-base uppercase mb-10 max-w-2xl mx-auto">
+                    The arena cycle resets soon. Secure your rank in the neural network.
+                </p>
+<!-- Countdown Timer -->
+<div class="grid grid-cols-4 gap-3 md:gap-8 mb-10 w-full max-w-3xl">
+<div class="flex flex-col items-center p-4 bg-surface-dark/80 backdrop-blur border border-white/10 rounded-lg group hover:border-accent-lime/50 transition-colors">
+<span class="text-3xl md:text-5xl font-bold text-white tabular-nums group-hover:text-accent-lime transition-colors">14</span>
+<span class="text-[10px] md:text-xs font-bold text-white/40 uppercase tracking-widest mt-1">Days</span>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-dark/80 backdrop-blur border border-white/10 rounded-lg group hover:border-accent-lime/50 transition-colors">
+<span class="text-3xl md:text-5xl font-bold text-white tabular-nums group-hover:text-accent-lime transition-colors">08</span>
+<span class="text-[10px] md:text-xs font-bold text-white/40 uppercase tracking-widest mt-1">Hours</span>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-dark/80 backdrop-blur border border-white/10 rounded-lg group hover:border-accent-lime/50 transition-colors">
+<span class="text-3xl md:text-5xl font-bold text-white tabular-nums group-hover:text-accent-lime transition-colors">45</span>
+<span class="text-[10px] md:text-xs font-bold text-white/40 uppercase tracking-widest mt-1">Mins</span>
+</div>
+<div class="flex flex-col items-center p-4 bg-surface-dark/80 backdrop-blur border border-white/10 rounded-lg group hover:border-accent-lime/50 transition-colors">
+<span class="text-3xl md:text-5xl font-bold text-primary tabular-nums animate-pulse">22</span>
+<span class="text-[10px] md:text-xs font-bold text-white/40 uppercase tracking-widest mt-1">Secs</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+<button class="h-12 px-8 bg-primary hover:bg-primary/90 text-white font-bold uppercase tracking-wider rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">swords</span>
+                        Enter Arena
+                    </button>
+<button class="h-12 px-8 bg-transparent hover:bg-white/5 border border-white/20 text-white font-bold uppercase tracking-wider rounded-lg transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">description</span>
+                        Patch Notes 1.04
+                    </button>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid lg:grid-cols-3 gap-8">
+<!-- Leaderboard Section (Spans 2 cols) -->
+<section class="lg:col-span-2 flex flex-col gap-6">
+<div class="flex justify-between items-end border-b border-white/10 pb-4">
+<div>
+<h3 class="text-2xl font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-lime">trophy</span>
+                            ELITE LEADERBOARD
+                        </h3>
+<p class="text-sm text-white/50 mt-1">Top performing neural agents this season</p>
+</div>
+<a class="text-accent-blue text-xs font-bold uppercase hover:underline flex items-center gap-1" href="#">
+                        View Full Ranking <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Top 3 Pedestal -->
+<div class="flex items-end justify-center gap-4 min-h-[360px] py-8 px-4 bg-surface-darker/50 rounded-xl border border-white/5 relative">
+<!-- Rank 2 -->
+<div class="flex flex-col items-center w-1/3 max-w-[200px] group relative z-10">
+<div class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 backdrop-blur text-xs p-2 rounded border border-white/20 mb-2 pointer-events-none whitespace-nowrap z-20">
+                            Win Rate: <span class="text-accent-lime">68%</span>
+</div>
+<div class="relative w-full aspect-[4/5] rounded-t-lg overflow-hidden border-t-2 border-l-2 border-r-2 border-white/20 bg-surface-dark group-hover:-translate-y-2 transition-transform duration-300">
+<img alt="Rank 2 Agent Avatar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Futuristic cyborg portrait blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL8HQ40EUzBeTMcDHQHuujvkEuDB6Hc53Bh3RWliDhEHVmErAWP3Tw330DxjNK2fNHU900qnBJI-BFdwgAdJlQM0JctJxNYTNHJ2oEqMo-RnIHiCRe0xQUaklD7Y5LGyzJ_nCatvS3jpbsnXU16aChYxN_y6So-q0L6-xIEid8MUgqI9_kL6pmUER1T0pbpuISaJ0iOYJdqLk5gn0hi-H4uvEYCh26rElRgxUvuXD5is2lZo_Zbt9hgVGT13lFcwn_vRo6AI7iqNRO"/>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-3">
+<p class="text-white font-bold text-sm truncate">V0ID_WALKER</p>
+<p class="text-white/50 text-xs">Score: 8,450</p>
+</div>
+</div>
+<div class="w-full h-24 bg-gradient-to-b from-white/10 to-transparent flex items-center justify-center border-x border-white/10 relative">
+<span class="text-4xl font-black text-white/10 absolute top-2">#2</span>
+</div>
+</div>
+<!-- Rank 1 (Center) -->
+<div class="flex flex-col items-center w-1/3 max-w-[220px] group relative z-20 -mb-4">
+<div class="absolute -top-16 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 backdrop-blur text-xs p-2 rounded border border-primary mb-2 pointer-events-none whitespace-nowrap z-20">
+                            Win Rate: <span class="text-primary">74%</span> • K/D: 3.2
+                        </div>
+<div class="absolute -inset-1 bg-gradient-to-b from-primary to-transparent opacity-50 blur-lg rounded-t-xl"></div>
+<div class="relative w-full aspect-[4/5] rounded-t-xl overflow-hidden border-2 border-primary bg-surface-dark shadow-[0_0_30px_rgba(255,46,150,0.3)] group-hover:-translate-y-2 transition-transform duration-300">
+<img alt="Rank 1 Agent Avatar" class="w-full h-full object-cover" data-alt="Cyberpunk female warrior neon pink" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjFHPoR4ekw-vhNv5G5bTfLAiSRbUmCiIr711cPu33VhyloI6sZJbxiW86AZEwed_weMlEGQ5BL32tCG_0mcwyvEjJsSlzgeKwQDlxHA8RzcguV9_6le-SFsBwoQbn9jvyUeup4LImD8ZgE4xzy_cwacT0qWZj6ObGn4pOneUilRlpuAiC4xU3aEkCCRy-P_x7TU9jC9u8nRH1Gu3hso4eZ9MBtbyzEtV0whzXKZGPHGqLGyT8yFnE9CFlGIK-Zr3Qfof_w9Z6bNso"/>
+<div class="absolute top-2 right-2">
+<span class="material-symbols-outlined text-primary drop-shadow-[0_0_5px_rgba(255,46,150,0.8)]">crown</span>
+</div>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-primary/90 to-transparent p-4">
+<p class="text-white font-black text-base truncate">NEURO_LANCER</p>
+<p class="text-white/90 text-xs font-bold">Score: 9,240</p>
+</div>
+</div>
+<div class="w-full h-32 bg-gradient-to-b from-primary/20 to-transparent flex items-center justify-center border-x border-primary/30 relative backdrop-blur-sm">
+<span class="text-5xl font-black text-primary/30 absolute top-4">#1</span>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex flex-col items-center w-1/3 max-w-[200px] group relative z-10">
+<div class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 backdrop-blur text-xs p-2 rounded border border-white/20 mb-2 pointer-events-none whitespace-nowrap z-20">
+                            Win Rate: <span class="text-accent-blue">62%</span>
+</div>
+<div class="relative w-full aspect-[4/5] rounded-t-lg overflow-hidden border-t-2 border-l-2 border-r-2 border-white/20 bg-surface-dark group-hover:-translate-y-2 transition-transform duration-300">
+<img alt="Rank 3 Agent Avatar" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Robot face close up dark" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB433HNQtmVT-X_SH59Z2RRIvdoOp8yPALzygbGNwwyNEYYoWJi-1iAF1sDyhqwvCXUgdY1G40gNpHn74cc2hZVcd5EyrVPGOGLw6jMMtunP5FNRGSP8z8yMYUBiVIhf1GUP1wRvIEKwop3tnlggrUQYqYXEZPtQkEVgF7_H2WRc0tcYJI4cO9pRxxNVr6yBNUtzoCivqn-c5a3sjGEgphGIM_cvPNSnxcaDVpKYQrzYoVa74CPkbNE7JPJzfUFtWKG5ZPl1WOIHobR"/>
+<div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black to-transparent p-3">
+<p class="text-white font-bold text-sm truncate">CYPHER_PUNK</p>
+<p class="text-white/50 text-xs">Score: 7,920</p>
+</div>
+</div>
+<div class="w-full h-16 bg-gradient-to-b from-white/10 to-transparent flex items-center justify-center border-x border-white/10 relative">
+<span class="text-4xl font-black text-white/10 absolute top-2">#3</span>
+</div>
+</div>
+</div>
+<!-- List Ranks 4-7 -->
+<div class="flex flex-col gap-2">
+<!-- Row -->
+<div class="flex items-center gap-4 p-3 rounded bg-surface-dark border border-white/5 hover:border-accent-blue/30 hover:bg-white/5 transition-colors group cursor-pointer">
+<span class="w-8 text-center text-white/40 font-bold font-mono">04</span>
+<div class="size-10 rounded bg-white/10 bg-cover" data-alt="Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuArKOMJvWhcDlDNBhwpNC2-TfMy8iR_O04Q1rdMc73PNZafocR1JA2XKbdI6EZ8DfJfQhZjBcKjxk-RJgglXJu13OaLEJghHhVuJsfFNNC2iuqlIlYEmbu3CgrNbSAwIG5mWaxg2bK8t3eAu1cujXn3DHMX-HfGp1OVud37jcBjBS2dr0rgbYR0uFCa53j84ZYiqiiAi1OS5b9xftiR3C79HqLMVIydpIPJIDjU66A-vjttyAMIyQ7k05dE-jqsgGtQae3ISCzYduXH");'></div>
+<div class="flex-1">
+<p class="text-white font-medium text-sm group-hover:text-accent-blue transition-colors">Digital_Ronin</p>
+<p class="text-white/40 text-xs">Class: Infiltrator</p>
+</div>
+<div class="text-right">
+<p class="text-accent-lime font-mono font-bold text-sm">7,450</p>
+<p class="text-white/30 text-[10px] uppercase">Score</p>
+</div>
+</div>
+<!-- Row -->
+<div class="flex items-center gap-4 p-3 rounded bg-surface-dark border border-white/5 hover:border-accent-blue/30 hover:bg-white/5 transition-colors group cursor-pointer">
+<span class="w-8 text-center text-white/40 font-bold font-mono">05</span>
+<div class="size-10 rounded bg-white/10 bg-cover" data-alt="Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDo3V0gJhr0_W9DtJaVw27eSelNFzdfMvgTR1qkCTxs_WVvBkfXAnOGPy8-b1fLSLizqcYA-GO1TU8DtTrJy4ObbF5ksiDKg7QwqReFv2OqWFI5F904gJdtoEgl5VG26s8rw4aTKS_QtcXgA8HB4Kz0VaVSWUsoQPRoVuytoi5dlp3Vv6emBQgpoavYqaqi9fHcIXTEMs6F7KpH_zan20TJqJoEo-bdXXMKv5x2wcI-nld0pQe4W3V3q1bg5ybFRxyywnGU50azQ3s8");'></div>
+<div class="flex-1">
+<p class="text-white font-medium text-sm group-hover:text-accent-blue transition-colors">Null_Pointer</p>
+<p class="text-white/40 text-xs">Class: Tank</p>
+</div>
+<div class="text-right">
+<p class="text-accent-lime font-mono font-bold text-sm">7,120</p>
+<p class="text-white/30 text-[10px] uppercase">Score</p>
+</div>
+</div>
+<!-- Row -->
+<div class="flex items-center gap-4 p-3 rounded bg-surface-dark border border-white/5 hover:border-accent-blue/30 hover:bg-white/5 transition-colors group cursor-pointer">
+<span class="w-8 text-center text-white/40 font-bold font-mono">06</span>
+<div class="size-10 rounded bg-white/10 bg-cover" data-alt="Avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBo7KxUGS9Xlw_P5QvzV2EluMAec2jNKd6gzZ0zi2a47wFNHWESVrgCfMHuXayJ3ygxKAm6Ovw80hVTvTAMC0-4gloWysPDo4Mti_3HOZogXUcUCTi1jz58uy98WprBm-IHbsMSCPLq9dCcttwpQDiN_eGbuzUhDojq7bvrU-wIrtMxGIcgTwT8ruBbzqAGiVhbMnlKcm7eTg2nR4UhOphbMLX-NMCayMmKKsrE9cvq0PIkh524L0qQV5S28JIhAZLp6Abfao3N9W1G");'></div>
+<div class="flex-1">
+<p class="text-white font-medium text-sm group-hover:text-accent-blue transition-colors">Byte_Smasher</p>
+<p class="text-white/40 text-xs">Class: Striker</p>
+</div>
+<div class="text-right">
+<p class="text-accent-lime font-mono font-bold text-sm">6,895</p>
+<p class="text-white/30 text-[10px] uppercase">Score</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Rewards & Stats Sidebar -->
+<aside class="flex flex-col gap-8">
+<!-- Battle Pass/Rewards Card -->
+<div class="bg-surface-darker border border-white/10 rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary rotate-12">military_tech</span>
+</div>
+<h3 class="text-xl font-bold text-white mb-1">SEASON REWARDS</h3>
+<p class="text-sm text-white/50 mb-6">Unlock exclusive items by ranking up.</p>
+<!-- Progress Bar -->
+<div class="flex justify-between text-xs font-bold text-white/70 mb-2 uppercase tracking-wide">
+<span>Current Tier: 14</span>
+<span>Next: 500 XP</span>
+</div>
+<div class="w-full h-2 bg-black rounded-full overflow-hidden mb-8 border border-white/10">
+<div class="h-full bg-gradient-to-r from-primary to-accent-lime w-[70%] shadow-[0_0_10px_rgba(204,255,0,0.5)]"></div>
+</div>
+<!-- Reward Tiers -->
+<div class="space-y-4">
+<!-- Upcoming Reward -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-dark border border-accent-lime/30 lime-glow">
+<div class="size-12 rounded bg-black flex items-center justify-center border border-accent-lime/50 text-accent-lime">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-sm">Tier 15: Cyber-Katana</p>
+<p class="text-accent-lime text-xs">Unlockable Weapon Skin</p>
+</div>
+<span class="material-symbols-outlined text-white/20">lock</span>
+</div>
+<!-- Later Reward -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-dark border border-white/5 opacity-60 hover:opacity-100 transition-opacity">
+<div class="size-12 rounded bg-black flex items-center justify-center border border-white/10 text-accent-blue">
+<span class="material-symbols-outlined">deployed_code</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-sm">Tier 20: 5000 Credits</p>
+<p class="text-accent-blue text-xs">In-game Currency</p>
+</div>
+<span class="material-symbols-outlined text-white/20">lock</span>
+</div>
+<!-- Later Reward -->
+<div class="flex items-center gap-4 p-3 rounded-lg bg-surface-dark border border-white/5 opacity-60 hover:opacity-100 transition-opacity">
+<div class="size-12 rounded bg-black flex items-center justify-center border border-white/10 text-primary">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div class="flex-1">
+<p class="text-white font-bold text-sm">Tier 50: Legendary Core</p>
+<p class="text-primary text-xs">Agent Upgrade</p>
+</div>
+<span class="material-symbols-outlined text-white/20">lock</span>
+</div>
+</div>
+<button class="w-full mt-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white text-sm font-bold uppercase tracking-wider rounded transition-colors flex items-center justify-center gap-2">
+                        View All Rewards
+                    </button>
+</div>
+<!-- Personal Stats Mini-Dash -->
+<div class="bg-surface-darker border border-white/10 rounded-xl p-6">
+<h3 class="text-sm font-bold text-white/50 uppercase tracking-widest mb-4 border-b border-white/5 pb-2">Your Performance</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-3 bg-surface-dark rounded border border-white/5">
+<p class="text-xs text-white/40 mb-1">Rank</p>
+<p class="text-xl font-bold text-white">#4,281</p>
+</div>
+<div class="p-3 bg-surface-dark rounded border border-white/5">
+<p class="text-xs text-white/40 mb-1">Rating</p>
+<p class="text-xl font-bold text-accent-blue">1,240</p>
+</div>
+<div class="p-3 bg-surface-dark rounded border border-white/5">
+<p class="text-xs text-white/40 mb-1">Win Rate</p>
+<p class="text-xl font-bold text-accent-lime">54.2%</p>
+</div>
+<div class="p-3 bg-surface-dark rounded border border-white/5">
+<p class="text-xs text-white/40 mb-1">Matches</p>
+<p class="text-xl font-bold text-white">48</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Previous Seasons Archive Footer -->
+<footer class="mt-auto pt-10 pb-6 border-t border-white/5">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div>
+<h4 class="text-white text-sm font-bold uppercase tracking-wide mb-2">Season Archives</h4>
+<div class="flex gap-6">
+<a class="text-white/40 hover:text-accent-blue text-xs transition-colors flex items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[14px] group-hover:rotate-12 transition-transform">folder_open</span>
+                            Season 0 (Beta)
+                        </a>
+<a class="text-white/40 hover:text-accent-blue text-xs transition-colors flex items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-[14px] group-hover:rotate-12 transition-transform">folder_open</span>
+                            Pre-Alpha
+                        </a>
+</div>
+</div>
+<div class="text-right">
+<p class="text-white/20 text-xs font-mono">AGENT ARENA OS v2.4.1 // SYSTEM ONLINE</p>
+</div>
+</div>
+</footer>
+</main>
+</body></html>
